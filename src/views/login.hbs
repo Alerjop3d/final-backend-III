@@ -1,0 +1,21 @@
+<h1>Login</h1>
+
+<form action="/users/login" method="post" id="login-form">
+  Email:
+  <input type="email" name="email" id="email" placeholder="Email" />
+  Password:
+  <input type="password" name="password" id="password" placeholder="Password" />
+  <input type="submit" value="Login" />
+</form>
+
+<div id="error-message" style="color: red">{{error}}</div>
+<div id="sucess-message" style="color: green;"></div>
+
+<br>
+
+<h3>¿Usuario nuevo?</h3>
+<button onclick="location.href='/register'">Registro</button>
+<h3>¿Has olvidado tu contraseña?</h3>
+<button onclick="location.href='/changePass'">Cambiar Contraseña</button>
+
+
