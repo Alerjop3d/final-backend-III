@@ -1,1 +1,0 @@
-[2025-07-23T03:43:02.465Z] ERROR: error al conectar MongoDB: MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"

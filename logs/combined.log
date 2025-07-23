@@ -1,6 +1,0 @@
-[2025-07-23T03:41:41.033Z] INFO: Server is running on port 8080
-[2025-07-23T03:41:42.226Z] INFO: conectado exitosamente a MongoDB
-[2025-07-23T03:42:25.466Z] INFO: Server is running on port 8080
-[2025-07-23T03:42:26.137Z] INFO: conectado exitosamente a MongoDB
-[2025-07-23T03:43:02.465Z] ERROR: error al conectar MongoDB: MongoParseError: Invalid scheme, expected connection string to start with "mongodb://" or "mongodb+srv://"
-[2025-07-23T03:43:02.470Z] INFO: Server is running on port 8080
