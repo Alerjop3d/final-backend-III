@@ -9,7 +9,9 @@ import userRoutes from './routes/usersRoute.js';
 import viewsRoutes from './routes/viewsRoute.js';
 import productsRoute from './routes/productsRoute.js';
 
+import { logger } from './logger.js';
 import { initMongoDB } from './connections/mongo.js';
+import { logRequest } from './middlewares/loggerMiddleware.js';
 import * as middleware from './middlewares/userMiddlewares.js';
 
 // ------------- Server config ----------------->
@@ -22,6 +24,7 @@ app.use(express.static(path.join(process.cwd(), 'src', 'public')));
 app.use(expressSession({secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));
 
 // ------------- Middlewares ----------------->
+app.use(logRequest);
 app.use(middleware.getName);
 app.use(middleware.errorHandler);
 app.use(middleware.getCurrentUser);
@@ -33,8 +36,8 @@ app.set('views', path.join(process.cwd(), 'src', 'views'));
 
 // ------------- Mongo & routes ----------------->
 initMongoDB()
-  .then(() => console.log('conectado exitosamente a MongoDB'))
-  .catch(err => console.error('error al conectar MongoDB:', err));
+  .then(() => logger.info('conectado exitosamente a MongoDB'))
+  .catch(err => logger.error('error al conectar MongoDB:', err));
   
   app.use('/', viewsRoutes);
   app.use('/users', userRoutes);
@@ -43,7 +46,13 @@ initMongoDB()
   
 // ------------- Running app ----------------->
 app.listen(8080, () => {
-  console.log(`Server is running on port 8080`);
+  logger.info(`Server is running on port 8080`);
 });
+
+
+
+
+
+
 
 

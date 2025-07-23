@@ -1,4 +1,5 @@
 import { User } from './models/userModel.js';
+import { logger } from './logger.js';
 import nodemailer from 'nodemailer';
 import 'dotenv/config';
 
@@ -22,26 +23,26 @@ class Writer {
   // ------------- Update item por cart ----------------->
   async updateCart(cartData, userId = this.userId) {
     if (!userId) {
-      console.error('No se proporcionó un userId válido.');
+      logger.error('No se proporcionó un userId válido.');
       return;
     }
     if (!cartData || typeof cartData !== 'object') {
-      console.error('Datos del carrito no válidos:', cartData);
+      logger.error('Datos del carrito no válidos:', cartData);
       return;
     }
     const user = await User.findById(userId);
     if (!user) {
-      console.error('Usuario no encontrado con el ID:', userId);
+      logger.error('Usuario no encontrado con el ID:', userId);
       return;
     }
     try {
       await User.findByIdAndUpdate(userId, { $set: { cart: cartData } });
-      console.log('Carrito actualizado correctamente.');
-      console.log('Datos del carrito:', cartData);
-      console.log('ID del usuario:', userId);
+      logger.info('Carrito actualizado correctamente.');
+      logger.info('Datos del carrito:', cartData);
+      logger.info('ID del usuario:', userId);
     } catch (err) {
-      console.log('Error al actualizar el carrito:', err);
-      console.error('Error al actualizar el carrito:', err);
+      logger.info('Error al actualizar el carrito:', err);
+      logger.error('Error al actualizar el carrito:', err);
     }
   }
 
@@ -51,7 +52,7 @@ class Writer {
       const cart = (await User.findById(userId, 'cart')).cart;
       return JSON.stringify(cart) || [];
     } catch (err) {
-      console.error(err);
+      logger.error(err);
       return [];
     }
   }
@@ -67,9 +68,9 @@ class Writer {
         html
       };
       await transporter.sendMail(mailOptions);
-      console.log('Correo electrónico enviado con éxito');
+      logger.info('Correo electrónico enviado con éxito');
     } catch (error) {
-      console.error('Error al enviar el correo electrónico:', error);
+      logger.error('Error al enviar el correo electrónico:', error);
     }
   }
 }

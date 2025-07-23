@@ -33,13 +33,11 @@ const userSchema = new Schema({
     }
 });
 
-// Method to hash the password
 userSchema.methods.hashPassword = async function(password) {
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
 };
 
-// Method to compare password
 userSchema.methods.comparePassword = async function(password) {
     return bcrypt.compare(password, this.password);
 };
